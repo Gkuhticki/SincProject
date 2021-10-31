@@ -204,6 +204,48 @@ def clear_all_list():
 
     log[:] = []
 
+def per_sinc():
+    p = """
+    Вас приветствует программа синхронизации каталогов,
+    пожалуйста следуйте следующим инструкциям
+    ______________________________________________________________
+    Пожалуйста введите частоту синхронизации которая вас устроит.
+    Если вы хотите синхронизировать каталог по минутам введите 'min',
+    если хотите синхронизировать по часам введите 'hour'
+    """
+    print(p)
+    global lot_time
+    condition = False
+    hour = "hour"
+    minutes = "min"
+    lot_time = int()
+    while condition == False:
+        print("Введите ваш выбор")
+        i = (input())
+        if i == minutes:
+            print("Вы выбрали минуты отлично")
+            print(
+                "Теперь пожалуйста введите как часто вы хотите совершать синхронизацию введите кол-во минут (цифрами)")
+            lot_min = int(input())
+            print("Отлично синхронизация будет происходить каждые", lot_min, "минут")
+            inner_lot = lot_min * 60
+            lot_time = int(inner_lot)
+            condition = True
+        elif i == hour:
+            print("Вы выбрали часы отлично")
+            print(
+                "Теперь пожалуйста введите как часто вы хотите совершать синхронизацию введите кол-во часов (цифрами)")
+            lot_hour = int(input())
+            print("Отлично синхронизация будет происходить каждые", lot_hour, "часов")
+            inner_lot = lot_hour * 60 * 60
+            lot_time = int(inner_lot)
+            condition = True
+        else:
+            condition = False
+            print("Это не верное значение введите предложанные данные")
+            continue
+
+
 def main_func():
     i = 0
     while True :
@@ -233,5 +275,8 @@ def main_func():
 
 
 
-        time.sleep(1)
+        time.sleep(lot_time)
+
+        
+per_sinc()
 main_func()
