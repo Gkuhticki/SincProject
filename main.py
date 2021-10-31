@@ -10,7 +10,8 @@ src = "/home/georg/my_projects/Test/src/"
 dst = "/home/georg/my_projects/Test/dst/"
 
 log = []
-
+len_src = len(src)
+len_dst = len(dst)
 
 # каталоги с root взял на всякий случай
 # каталоги без root нужны для успешного создания каталогов в dst, и для сравнения итоговых данных
@@ -33,11 +34,11 @@ def scraping_files_catalogs_of_src():
         inner_tempdict_file_path = []
 
         only_all_catalogs_src.append(root)
-        only_all_catalogs_src_without_root.append(root.strip(src))
+        only_all_catalogs_src_without_root.append(root[len_src:])
 
         # записываем во временный словарь путь до файла без src, и отдельно записываем файлы в этой директории
         # это нужно для того что бы позже сформировать конечный список по шаблону [ПУТЬ, ФАЙЛ], [ПУТЬ, ФАЙЛ]
-        inner_temp_path.append(root.strip(src))
+        inner_temp_path.append(root[len_src:])
         inner_tempfiles.extend(files)
 
         # цикл и строка после него  нужны для того что бы свормировать вложенный список,
@@ -78,11 +79,11 @@ def scraping_files_catalogs_of_dst():
         inner_tempdict_file_path = []
 
         only_all_catalogs_dst.append(root)
-        only_all_catalogs_dst_without_root.append(root.strip(dst))
+        only_all_catalogs_dst_without_root.append(root[len_dst:])
 
         # записываем во временный словарь путь до файла без dst, и отдельно записываем файлы в этой директории
         # это нужно для того что бы позже сформировать конечный список по шаблону [ПУТЬ, ФАЙЛ], [ПУТЬ, ФАЙЛ]
-        inner_temp_path.append(root.strip(dst))
+        inner_temp_path.append(root[len_dst:])
         inner_tempfiles.extend(files)
 
         # цикл и строка после него  нужны для того что бы свормировать вложенный список,
@@ -201,7 +202,7 @@ def clear_all_list():
 
     path_only_in_dst[:] = []
 
-
+    log[:] = []
 
 def main_func():
     i = 0
@@ -220,14 +221,17 @@ def main_func():
         remove_catalogs()
         copy_files()
 
+
+
+        for l in log:
+            print(l)
         # Отчищаем списки перед следующим циклом
         clear_all_list()
-        i +=  1
+        i += 1
 
         print("Цикл №", i)
-        for i in log:
-            print(i)
 
 
-        time.sleep(600)
+
+        time.sleep(1)
 main_func()
